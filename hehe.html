@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Page Title</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+
+    aside {
+      width: 200px;
+      background-color: #f0f0f0;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      padding: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <nav>
+      <ul id="sidebar-nav"></ul>
+    </nav>
+  </aside>
+
+  <main>
+    <h1>Page Title</h1>
+    <h2 id="section1">Section 1</h2>
+    <p>Your content for Section 1 goes here.</p>
+
+    <h2 id="section2">Section 2</h2>
+    <p>Your content for Section 2 goes here.</p>
+
+    <!-- Add more sections as needed -->
+
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Get all header elements (h1, h2, h3, etc.)
+      var headers = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+      // Get the sidebar navigation element
+      var sidebarNav = document.getElementById('sidebar-nav');
+
+      // Loop through each header and create a link in the sidebar
+      headers.forEach(function (header) {
+        var listItem = document.createElement('li');
+        var link = document.createElement('a');
+
+        // Set the link text to the header text
+        link.textContent = header.textContent;
+
+        // Set the link href to the header id
+        link.href = '#' + header.id;
+
+        // Append the link to the list item
+        listItem.appendChild(link);
+
+        // Append the list item to the sidebar navigation
+        sidebarNav.appendChild(listItem);
+      });
+    });
+  </script>
+</body>
+</html>
