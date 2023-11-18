@@ -10,6 +10,14 @@
       margin: 0;
       padding: 0;
       display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
     }
 
     main {
@@ -30,6 +38,11 @@
     nav ul {
       list-style: none;
       padding: 0;
+    }
+
+    nav h2 {
+      color: #333;
+      margin-bottom: 15px;
     }
 
     nav a {
@@ -60,9 +73,14 @@
   </style>
 </head>
 <body>
+
+  <header>
+    <h1>Heartbleed</h1>
+  </header>
+
   <aside>
     <nav>
-      <h2>Page Navigation</h2>
+      <h1>Page Navigation</h1>
       <ul id="sidebar-nav"></ul>
     </nav>
   </aside>
@@ -96,32 +114,6 @@
 
   </main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // Get all header elements (h1, h2, h3, etc.)
-      var headers = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-      // Get the sidebar navigation element
-      var sidebarNav = document.getElementById('sidebar-nav');
-
-      // Loop through each header and create a link in the sidebar
-      headers.forEach(function (header) {
-        var listItem = document.createElement('li');
-        var link = document.createElement('a');
-
-        // Set the link text to the header text
-        link.textContent = header.textContent;
-
-        // Set the link href to the header id
-        link.href = '#' + header.id;
-
-        // Append the link to the list item
-        listItem.appendChild(link);
-
-        // Append the list item to the sidebar navigation
-        sidebarNav.appendChild(listItem);
-      });
-    });
-  </script>
+  <script src="javascript/script.js"></script>
 </body>
 </html>
