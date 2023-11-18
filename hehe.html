@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Page Title</title>
+  <title>Heartbleed</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,9 +15,11 @@
     main {
       flex: 1;
       padding: 20px;
+      margin-left: 220px; /* Add margin to create space for the sidebar */
     }
 
     aside {
+      
       width: 200px;
       background-color: #f0f0f0;
       padding: 20px;
@@ -36,24 +38,61 @@
       display: block;
       padding: 8px 0;
     }
+
+    /* Add styles to make the sidebar float */
+    @media (min-width: 768px) {
+      aside {
+        position: fixed;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      main {   
+        /* -ms-flex: 70%;
+        flex: 70%; */
+        background-color: white;
+        /* padding: 60px; */
+        padding-top: 5%;
+        padding-left: 25%;
+        padding-right: 25%;
+}
+    }
   </style>
 </head>
 <body>
   <aside>
     <nav>
+      <h2>Page Navigation</h2>
       <ul id="sidebar-nav"></ul>
     </nav>
   </aside>
 
   <main>
-    <h1>Page Title</h1>
-    <h2 id="section1">Section 1</h2>
+    <h1>Heartbleed</h1>
+
+    <h2 id="What_Is_Heartbleed">What is Heartbleed?</h2>
+    <p>Your content for Section 3 goes here.</p>
+
+    <h2 id="Heartbleed_History">A Short History of Heartbleed</h2>
     <p>Your content for Section 1 goes here.</p>
 
-    <h2 id="section2">Section 2</h2>
+    <h2 id="TLS_Explanation">How Did TLS Work?</h2>
     <p>Your content for Section 2 goes here.</p>
 
-    <!-- Add more sections as needed -->
+    <h2 id="How_Heartbleed_Works">How Does Heartbleed Work?</h2>
+    <p>Your content for Section 3 goes here.</p>
+
+    <h2 id="Heartbleed_Today">Heartbleed's Impact Today</h2>
+    <p>Your content for Section 4 goes here.</p>
+
+    <h2 id="Detect_Heartbleed">How to Detect Heartbleed</h2>
+    <p>Your content for Section 5 goes here.</p>
+
+    <h2 id="Heartbleed_Demo">Heartbleed in Action</h2>
+    <p>Your content for Section 6 goes here.</p>
+
+    <h2 id="Quiz">Heartbleed Knowledge Quiz</h2>
+    <p>Your content for Section 7 goes here.</p>
 
   </main>
 
