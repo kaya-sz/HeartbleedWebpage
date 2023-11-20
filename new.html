@@ -113,11 +113,31 @@
     <p>Your content for Section 6 goes here.</p>
 
     <h2 id="Quiz">Heartbleed Knowledge Quiz</h2>
-    <a href="quiz.html">Take the quiz</a>
+    <p>Your content for Section 7 goes here.</p>
 
   </main>
 
+  <main>
+    <div id="start-container">
+      <h2>Welcome to the Heedy Quiz!</h2>
+      <p>Click the button below to start the quiz.</p>
+      <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <div id="quiz-container">
+      <div id="question-container" class="question-container"></div>
+      <button onclick="nextQuestion()">Next</button>
+    </div>
+
+    <!-- <div id="results-container">
+      <h2>Quiz Results</h2>
+      <p id="score"></p>
+    </div> -->
+    <h1 id="results-header">Quiz Results</h1>
+  </main>
+
   <script src="javascript/script.js"></script>
+  <script src="javascript/quiz.js"></script>
 </body>
 
 

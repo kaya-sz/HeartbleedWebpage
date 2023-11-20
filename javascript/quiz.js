@@ -82,10 +82,15 @@ const questions = [
   
   function showResults() {
     document.getElementById("quiz-container").style.display = "none";
-    document.getElementById("results-container").style.display = "block";
+  
+    const resultsContainer = document.getElementById("results-container");
+    resultsContainer.style.display = "block";
   
     const scoreElement = document.getElementById("score");
     scoreElement.textContent = `You scored ${score} out of ${questions.length} questions.`;
+  
+    const resultsHeader = document.getElementById("results-header");
+    resultsHeader.style.display = "block";
   }
   
   // Helper function to check if two arrays are equal
