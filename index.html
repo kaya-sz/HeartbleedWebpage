@@ -6,7 +6,7 @@
   <title>Heartbleed</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
@@ -93,10 +93,22 @@
 
     main h2 {
       text-align: center; /* Center the h2 headers */
+      padding-top: 20%;
+    }
+
+    main h3 {
+      text-align: left;
+      padding-left: 2%
     }
 
     main p {
       text-align: left; /* Left-align the p text */
+      padding: 2%;
+      line-height: 200%;
+    }
+
+    main code {
+      padding: 2%
     }
 
     /* .footer {
@@ -107,6 +119,7 @@
   </style>
 </head>
 
+
 <body>
 
   <header>
@@ -115,7 +128,7 @@
 
   <aside>
     <nav>
-      <h1>Page Navigation</h1>
+      <h1>Heartbleed</h1>
       <ul id="sidebar-nav"></ul>
     </nav>
   </aside>
@@ -128,7 +141,8 @@
       It affected 17% of all SSL servers, including companies like Google, Yahoo, Netflix, Facebook and even the FBI.</p>
 
     <h2 id="Heartbleed_History">A Short History of Heartbleed</h2>
-    <p>Your content for Section 1 goes here.</p>
+    <p>The first person to discovery Heartbleed was Neel Mehta, an engineer at Google discovered the vulnerability in March 2014. They later published a website https://heartbleed.com/ to publicize the bug.
+      The second discovery came from a Finnish cybersecurity firm Codenomicon just a couple weeks later. The company was working on a product called Safeguard, which would be an encryption and authentication targetted penetration testing tool.</p>
 
     <h2 id="TLS_Explanation">How Did TLS Work?</h2>
     <p>Your content for Section 2 goes here.</p>
@@ -137,15 +151,58 @@
     <p>Your content for Section 3 goes here.</p>
 
     <h2 id="Heartbleed_Today">Heartbleed's Impact Today</h2>
-    <p>Your content for Section 4 goes here.</p>
+    <p>Heartbleed was discovered in 2014, basically a decade ago, so is it still even relevant?
+      According to the SANS institute in a <a href="https://isc.sans.edu/diary/26798">2020 paper,</a>
+      they used Shodan, basically a search engine for servers, showed that over 204,000 servers were still vulnerable to heartbleed.
+      
+    </p>
 
     <h2 id="Detect_Heartbleed">How to Detect Heartbleed</h2>
-    <p>Your content for Section 5 goes here.</p>
+    <p>There are many ways to detect whether your system is vulnerable to Heartbleed. The methods we will go over include: manually checking, commandline tools, online tools, and vulnerability scanners.
+    </p>
+    <h3>Checking manually</h3>
+    <p>Versions 1.0.1, 1.0.1a, 1.0.1b, 1.0.1c, 1.0.1d, 1.0.1e, 1.0.1f are vulnerable to the heartbleed bug. You can manually test this by typing </p>
+      <pre><code>openssl version</code></pre> 
+      <p>into your terminal, and if the results are not one of the mentioned versions, then your system is not vulnerable to heartbleed.
+       </p>
+    <h3>Commandline Tools</h3>
+    <h4>OpenSSL tools</h4>
+    You can use OpenSSL itself to check for heartbleed. Open the terminal and paste this command into it. It will say "safe" if your server is not vulnerable to heartbleed.
+    <p><pre><code>echo "QUIT"|openssl s_client -connect example.com:443 2>&1|grep 'server extension "heartbeat" (id=15)' || echo safe</code></pre></p>
+    
+    <h4>nmap Scans</h4>
+    <p>Another option is to use nmap. Nmap is a port scanning tool, which means it will scan an IP or domain for what ports and connections it has open,
+      but it can detect for some vulnerabilities and other information as well.
+    </p>
+    <pre><code>nmap --script ssl-heartbleed -p 443 example.com</code></pre>
+    <p>or</p>
+    <pre><code>nmap --script ssl-heartbleed -p 443 198.168.1.1</code></pre>
+    <p>Depending on whether you want to use an domain or an IP.</p>
+    
+    <h3>Online tools</h3>
+    <h4>Qualys</h4>
+    <p>Qualys makes a server scanner that looks at a lot of different things related to TLS. It will search for common vulnerabilities (heartbleed included!), as well as other common SSL attacks like POODLE. 
+      It will also check some other basics such as certificates and ciphers they're using.
+      If your server is on the public Internet, you can copy the link and paste it in <a href="https://www.ssllabs.com/ssltest/">Qualys.</a></p>
 
+    <h4>DomSignal</h4>
+    <p>DomSignal is another server TLS scanner that will check for the health of your TLS implementation.
+      Just like Qualys, it will search for common misconfigurations and vulnerabilities, including heartbleed.
+      Once again, your server has to be on the public Internet, but you can copy the link and paste it here <a href="https://domsignal.com/tls-scanner">DomSignal.</a>
+    </p>
+
+    <h4>Vulnerability Scanners</h4>
+    <p>Vulnerability scanners are pretty similar to the online tools mentioned above (they're both vulnerability scanners overall),
+      but they'll have some slightly different implementation differences and capabilities. Some common scanners are Nessus and OpenVAS,
+      and they will both scan your system for common misconfigurations and vulnerabilities. One of the advantages that these scanners have
+      over the online tools like Qualys and DomSignal is customizability. Both Nessus and OpenVAS allows you to install additional plugins
+      and settings for your vulnerability scan.
+    </p>
     <h2 id="Heartbleed_Demo">Heartbleed in Action</h2>
-    <p>Your content for Section 6 goes here.</p>
+    
 
     <h2 id="Quiz">Heartbleed Knowledge Quiz</h2>
+    <p>Now that you've learned about Heartbleed, you can take the quiz! Score a 90% or higher to pass.</p>
     <a href="quiz.html">Take the quiz</a>
 
   </main>

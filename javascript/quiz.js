@@ -86,8 +86,15 @@ const questions = [
     const resultsContainer = document.getElementById("results-container");
     resultsContainer.style.display = "block";
   
-    const scoreElement = document.getElementById("score");
-    scoreElement.textContent = `You scored ${score} out of ${questions.length} questions.`;
+    const percentage = (score / questions.length) * 100;
+  
+    if (score / questions.length >= 0.9) {
+        const scoreElement = document.getElementById("score");
+      scoreElement.innerHTML = `Congratulations, you passed! <br><br>You scored ${score} out of ${questions.length} questions.`;
+    } else {
+        const scoreElement = document.getElementById("score");
+        scoreElement.innerHTML = `You scored ${score} out of ${questions.length} questions. <br><br>Score above 90% to pass!`
+    }
   
     const resultsHeader = document.getElementById("results-header");
     resultsHeader.style.display = "block";
