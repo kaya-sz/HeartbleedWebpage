@@ -1,9 +1,10 @@
 const questions = [
     {
-      id: 1,
-      text: "What is the capital of France?",
-      options: ["Berlin", "Madrid", "Paris", "Rome"],
-      correctAnswer: "Paris",
+        id: 1,
+        text: "Why shouldn't you implement SSL/TLS by hand?",
+        options: ["You should implement it by hand to make sure it's done correctly.", "It can't be implemented by hand.", "It's complicated, and could pose a security threat if done wrong.", "It's proprietary and only the SSL/TLS company knows how to implement it."],
+        correctAnswer: "It's complicated, and could pose a security threat if done wrong.",
+
     },
     {
       id: 2,
@@ -16,7 +17,8 @@ const questions = [
       text: "What is the largest mammal?",
       options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
       correctAnswer: "Blue Whale",
-    },
+    }
+    
   ];
   
   let currentQuestion = 0;

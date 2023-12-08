@@ -137,33 +137,104 @@
     <h1>Heartbleed</h1>
     <img src="images/HeartbleedOnCode.png" alt="Description of the image" class="image">
     <h2 id="What_Is_Heartbleed">What is Heartbleed?</h2>
-    <p>Heartbleed is a vulnerability in the OpenSSL protocol that allows an attacker to steal protected information. Heartbleed would allow anyone on the Internet to read system memory, which includes secret keys, passwords, and other sensitive information.
-      It affected 17% of all SSL servers, including companies like Google, Yahoo, Netflix, Facebook and even the FBI.</p>
+    <p>Heartbleed is an out of bounds read, or memory buffer overflow vulnerability in OpenSSL, which allows an attacker to read protected information. Heartbleed would allow anyone on the Internet to read system memory, which includes secret keys, passwords, and other sensitive information.
+      It affected 17% of all SSL servers, including companies like Google, Yahoo, Netflix, Facebook and even the FBI.
+      Heartbleed is categorized on the NIST database as <a href="https://nvd.nist.gov/vuln/detail/cve-2014-0160">CVE-2014-0160</a> with a base severity score of 7.5/10.
+
+    </p>
 
     <h2 id="Heartbleed_History">A Short History of Heartbleed</h2>
     <p>The first person to discovery Heartbleed was Neel Mehta, an engineer at Google discovered the vulnerability in March 2014. They later published a website https://heartbleed.com/ to publicize the bug.
       The second discovery came from a Finnish cybersecurity firm Codenomicon just a couple weeks later. The company was working on a product called Safeguard, which would be an encryption and authentication targetted penetration testing tool.</p>
 
-    <h2 id="TLS_Explanation">How Did TLS Work?</h2>
-    <p>Your content for Section 2 goes here.</p>
+    <h2 id="What_is_OpenSSL">What is OpenSSL?</h2>
+    <p>Heartbleed is a bug in the implementation of OpenSSL. OpenSSL implements the SSL/TLS protocol, but it itself is not a protocol.
+      Implementing SSL/TLS by scratch is a royal pain, which is why OpenSSL is very widely used. <br>When Heartbleed was first discovered, half a million websites, 
+     <a href="https://www.netcraft.com/blog/half-a-million-widely-trusted-websites-vulnerable-to-heartbleed-bug/"> 17% of web SSL servers</a>
+      were impacted.
+      
+
+      <h2 id="Why_OpenSSL">Why Use OpenSSL Instead of Implementing SSL/TLS by Hand?</h2>
+      <p>Now why would OpenSSL be used if the Heartbleed vulnerability is with OpenSSL, and not with SSL/TLS? Wouldn't implementing it by scratch avoid
+        having these issues?
+        Implementing SSL/TLS by hand sucks. By themselves, they're very complex protocols with a lot going on.
+        There's intricate encryption methods and key exchanges that have to be implemented. </p>
+        <h3>Encryption Methods</h3>
+        
+        <p>If these aren't implemented correctly, they pose a large security threat. It's could be like having a properly encoded message, compared
+        to an insecurely encoded message where someone just swapped out one letter in the word. Awe3r4oi6u vs. Hillo World, you can probably guess what the latter means.
+        </p>
+        
+        <h3>Key Exchanges</h3>
+        <p>
+        Key exchanges also have to be done securely. Public keys can be shared, but private keys need to be kept secret. But private keys still need to be verified, so how
+        can this be done securely? This is something that needs to be implemented properly, or else the secret private key could be leaked. There are many methods to doing a key 
+        exchange, but here you can read about some types of <a href="https://deeprnd.medium.com/cryptographic-key-exchange-5eb9e926edb0">Diffie Hellman Key Exchanges.</a>
+        </p>
+
+        <h3>Compliance</h3>
+        <p>
+          Likewise, there are lots of security standards, and some governmental standards/regulations that need to be abided by. California's privacy policy, GDPR, may need to be followed,
+          and if handling patient data, HIPAA needs to be followed. These are considerations that OpenSSL will follow, but may be cumbersome to implement by hand.
+        </p>
+
+        <h3>Expertise and Community </h3>
+        <p>
+          Since OpenSSL is so widely used, it's constantly being looked at and examined by experts, hence how Heartbleed was found by a Google engineer.
+          By using OpenSSL, there is the extra assurance that it's been reviewed by lots of people who know what they're doing, and so far haven't found anything.
+          Vulnerabilities are coming out every day, so OpenSSL undoubtedly has some that still haven't been discovered, but with a community that uses it, hopefully
+          someone will discover an issue before it's used maliciously.
+          With this, when a bug is discovered, a patch will be released to fix the issue.
+        </p>
+    
+    <h2 id="How_SSL_Works">How Does SSL Work?</h2>
+    <p>
+      Okay so how does SSL work? What is it doing, roughly?
+
+
+
+
+
+    </p>
 
     <h2 id="How_Heartbleed_Works">How Does Heartbleed Work?</h2>
-    <p>Your content for Section 3 goes here.</p>
+    <p>Da bad bad request says it has big payload. It does not. Boom buffer overflow on the read and that schnitzle is exposed.
+      It don't matter what's in memory. Keys? Secrets? Pornhub history? LEAKED!!
+    </p>
+
+    <h2 id="How_to_Fix_Heartbleed">How to Fix Heartbleed?</h2>
+    <p>Luckily, it's pretty easy to fix Heartbleed. All you need to do is to update OpenSSL to the latest version.
+      You can do this with the command in the terminal.
+      <pre><code>sudo apt install --only-upgrade openssl</code></pre>
+      So it's pretty easy to fix Heartbleed, so it's probably gone today, right?
+    </p>
 
     <h2 id="Heartbleed_Today">Heartbleed's Impact Today</h2>
     <p>Heartbleed was discovered in 2014, basically a decade ago, so is it still even relevant?
       According to the SANS institute in a <a href="https://isc.sans.edu/diary/26798">2020 paper,</a>
       they used Shodan, basically a search engine for servers, showed that over 204,000 servers were still vulnerable to heartbleed.
-      
+      A Japanese tech company, NTT, states in their <a href="https://services.global.ntt/en-us/insights/2020-global-threat-intelligence-report#form">2020 report</a> report that 
+      OpenSSL is targeted by attackers because of heartbleed.</p>
+
+      <h4>Why is it such a problem?</h4>
+      <p>
+      Within software, there's a lot of 3rd party libraries, applications, and components that often go into them, and while this software's
+      server is fully updated and secure from Heartbleed, those 3rd party components may not be. And there's a chance an attacker could
+      exploit Heartbleed in this 3rd party component, which gives them a door into the otherwise Heartbleed-secured software.
+
+      Another problem, is that some devices were not meant to be updated, such as some home IoT devices or medical devices. Especially in the case of medical devices,
+      they may get placed in areas that are hard to access, and they don't connect to the Internet to be able to download the new version. 
+      Or in some cases, they just weren't built with needing upgrades in the first place.
+      These devices are kind of stuck with the version they ship with.
     </p>
 
     <h2 id="Detect_Heartbleed">How to Detect Heartbleed</h2>
-    <p>There are many ways to detect whether your system is vulnerable to Heartbleed. The methods we will go over include: manually checking, commandline tools, online tools, and vulnerability scanners.
+    <p>There are many ways to detect whether a system is vulnerable to Heartbleed. The methods we will go over include: manually checking, commandline tools, online tools, and vulnerability scanners.
     </p>
     <h3>Checking manually</h3>
-    <p>Versions 1.0.1, 1.0.1a, 1.0.1b, 1.0.1c, 1.0.1d, 1.0.1e, 1.0.1f are vulnerable to the heartbleed bug. You can manually test this by typing </p>
+    <p>Versions 1.0.1, 1.0.1a, 1.0.1b, 1.0.1c, 1.0.1d, 1.0.1e, 1.0.1f are vulnerable to the heartbleed bug. This can be can manually test this by typing </p>
       <pre><code>openssl version</code></pre> 
-      <p>into your terminal, and if the results are not one of the mentioned versions, then your system is not vulnerable to heartbleed.
+      <p>into a terminal, and if the results are not one of the mentioned versions, then the system is not vulnerable to heartbleed.
        </p>
     <h3>Commandline Tools</h3>
     <h4>OpenSSL tools</h4>
