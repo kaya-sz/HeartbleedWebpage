@@ -14,13 +14,13 @@
       /* background-color: #f8f8f8; */
     }
 
-    header {
+    /* header {
       background-color: #333;
       color: #fff;
       padding: 20px;
       text-align: center;
       box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1);
-    }
+    } */
 
     main {
       flex: 1;
@@ -111,6 +111,14 @@
       padding: 2%
     }
 
+    video {
+      display: block;
+      margin: auto;
+      padding: 10px;
+      max-width: calc(100vw - 20px); /* 20px padding on both sides */
+      max-height: calc(100vh - 20px); /* 20px padding on top and bottom */
+    }
+
     /* .footer {
       padding: 20px;
       text-align: center;
@@ -122,9 +130,9 @@
 
 <body>
 
-  <header>
+  <!-- <header>
     <h1>Heartbleed</h1>
-  </header>
+  </header> -->
 
   <aside>
     <nav>
@@ -190,15 +198,78 @@
     <h2 id="How_SSL_Works">How Does SSL Work?</h2>
     <p>
       Okay so how does SSL work? What is it doing, roughly?
+      SSL stands for Secure Sockets Layer, and is used for encrypting and authenticating communications over the Internet. 
+      SSL was replaced by a newer protocol, called TLS, Transport Layer Security, but is still often referred to as SSL/TLS.
+    </p>
+    <p>First, some basics.</p>
+    <h3>Asymmetric Encryption</h3>
+    <p>Asymmetric encryption uses two types of keys, public keys and private keys. Public keys are public, and private keys are kept secret. 
+    When the public key is used to encrypt data, the data can only be decrypted with the private key. 
+    During the handshake, the client and the server will use this technique to generate random data to create session keys for encryption.
+    </p>
 
+    <h3>SSL Certificates</h3>
+    <p>
+    These are basically a file for a server that contains some information regarding the server, such as its public key, owner identity, digital signature, and more. 
+    Certificates can be self signed, but that's just like saying "I pinky promise you I am who I say I am." 
+    Whereas you can get a certificate authority to issue you a certificate, and this is more trustworthy, like the DMV saying you are who you say you are.
+    </p>
 
+    <h3>Handshake</h3>
+    <p>
+      !---TLS HANDSHAKE PICTURE---!
 
+      The first step, is the handshake.
+      There are different ways to do the handshake depending on the key exchange algorithm being used. RSA will have one, Diffie-Hellman has another. RSA is considered insecure now, and is not advised to be used. So the exact steps will differ, but basically the steps are: <br>
+      1. Client sends a hello message to the server, possibly including it's protocol version, cipher suites, and client random. <br>
+      2. Server replies, likely with its SSL certificate, it's selected cipher suite (a set of algorithms), and the server random. The server may include a digital signature or other things depending on the algorithm. <br>
+      3. The client verifies the server's identity through it's certificate, and/or digital signature. <br>
+      4. The client sends over a value to the server. What kind depends on the algorithm. This value is used to create the premaster secret. <br>
+      5. The client and the server calculate the premaster secrete separately. <br>
+      6. The client and server calculate a session key from the premaster secret, the client random, and the server random. <br>
+      7. The client is finished. <br>
+      8. The server is finished. <br>
+      9. Communicate can now proceed between the client and the server. <br>
+      <br>
 
+      !---- EASY TLS HANDSHAKE PICTURE ---!
+      TLS 1.3 cuts down the handshake, there are less cipher suites, so the client can guess what the server will pick. This means that the client can send all of it's information in one big hello, and generate the premaster secret then. <br>
+      When the server responds with its information, since it already has the premaster secret, it makes it's own master secret and also sends the finished message. <br>
+      Then the client verifies the certificate, digital signature, generates its master secret, and sends its finished message. And that's it!
+      <br>
+    </p>
+
+    <h3>The Heartbeat Request</h3>
+    <p>
+      <video id="dynamicVideo" controls>
+        <source src="videos/Heartbeat.mp4" type="video/mp4">
+      </video> <br>
+      Now that the client and the server are connected and communicating, there may occasionally be lulls in the communication (user may not be downloading or doing anything).
+      To make sure that the other is still there, they will send a "heartbeat request" to the other. This heartbeat request includes some encrypted data, and data about it's own length. 
+      And the other computer will store that message in a memory buffer (a physical place in memory where it stores data), and then reply back with the exact same encrypted data.
+      This ensures that the two computers are still connected, and one didn't drop. 
+      However the one big flaw, is that the OpenSSL implementation does not check whether the length of the message one computer says it is, is actually correct. They could lie and the other
+      computer would never know.
 
     </p>
 
     <h2 id="How_Heartbleed_Works">How Does Heartbleed Work?</h2>
-    <p>Da bad bad request says it has big payload. It does not. Boom buffer overflow on the read and that schnitzle is exposed.
+    <p>
+      <video id="dynamicVideo2" controls>
+        <source src="videos/Heartbleed.mp4" type="video/mp4">
+      </video> <br>
+      So how does heartbleed work? Let's go through an example of exploiting the heartbeat request.
+      The client will send the server "Hey I'm still here! (40KB)" and the server will see, oh I have a message of 40KB to store in my memory buffer, let me make 40KB of space to store it.
+      The thing is though, the server doesn't check to see if the message actually is 40KB. So this could mean the client sends a message much larger than it actually is. <br>
+      So when the server goes to allocate storage in its memory, it only allocates 2KB, since that's the actual length of the "Hey I'm still here!" message.
+      But now the server needs to respond to the client with the exact message, which was supposedly 40KB. So the server goes to its memory buffer, takes out 40KB of message starting at where the client's message started,
+      and then sends that back. So now the client receives its 2KB message, plus 38KB of the message stored after it in memory. <br>
+      Now an attacker can't know where their message will be stored in memory, and what comes after it, but if they get lucky, or just keep trying enough, it could return usernames, passwords, private keys, social security numbers,
+      or all kinds of sensitive information.
+      
+      
+      
+      Da bad bad request says it has big payload. It does not. Boom buffer overflow on the read and that schnitzle is exposed.
       It don't matter what's in memory. Keys? Secrets? Pornhub history? LEAKED!!
     </p>
 

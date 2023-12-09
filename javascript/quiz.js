@@ -8,16 +8,58 @@ const questions = [
     },
     {
       id: 2,
-      text: "Which planet is known as the Red Planet?",
-      options: ["Earth", "Mars", "Venus", "Jupiter"],
-      correctAnswer: "Mars",
+      text: "Heartbleed is a historical vulnerability, not really found in the wild.",
+      options: ["True", "False"],
+      correctAnswer: "False",
     },
     {
       id: 3,
-      text: "What is the largest mammal?",
-      options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
-      correctAnswer: "Blue Whale",
-    }
+      text: "Which one of these commands can fix heartbleed?",
+      options: ["sudo apt update && sudo apt upgrade", "sudo apt install openssl -heartbleed_fix", "sudo apt install --only-upgrade openssl", "sudo apt install heartbleed-patch"],
+      correctAnswer: "sudo apt install --only-upgrade openssl",
+    },
+    {
+        id: 4,
+        text: "What type of vulnerability is heartbleed?",
+        options: ["Buffer overflow", "SQL Injection", "Cross Site Scripting", "Directory Traversal"],
+        correctAnswer: "Buffer overflow",
+      },
+      {
+        id: 5,
+        text: "What is the first step of the TLS handshake?",
+        options: ["Client hello", "Server hello", "Server authentication", "Creating a SSL certificate"],
+        correctAnswer: "Client hello",
+      },
+      {
+        id: 6,
+        text: "Why is heartbleed hard to get rid of?",
+        options: ["It's a really complicated attack with an in depth fix.", "No one knows how it works yet.", "It's so pervasive in different technologies, it's hard to tell which ones have been updated/can be updated.", "It's constantly copying itself, so it will eventually come back around."],
+        correctAnswer: "It's so pervasive in different technologies, it's hard to tell which ones have been updated/can be updated.",
+      },
+      {
+        id: 7,
+        text: "What's the main problem in OpenSSL that heartbleed took advantage of?",
+        options: ["Exposed credentials.", "Attackers are able to execute commands in the website URLs and travel backwards into the system.", "Open port 734 let the attackers 'bleed' plaintext information from the servers.", "The length of the heartbeat request isn't verified."],
+        correctAnswer: "The length of the heartbeat request isn't verified.",
+      },
+      {
+        id: 8,
+        text: "How could OpenSSL fix this issue?",
+        options: ["Encrypt the exposed credentials.", "White list user inputs so attackers can't just execute any commands in the URLs.", "Close port 734.", "Verify the length of messages being sent."],
+        correctAnswer: "Verify the length of messages being sent.",
+      },
+      {
+        id: 9,
+        text: "What is an option to detect heartbleed on a public server?",
+        options: ["Check the server in Qualys.", "Check the server's Github for an open issue regarding heartbleed.", "Run openssl version in the terminal.", "Check the NIST database."],
+        correctAnswer: "Check the server in Qualys",
+      },
+      {
+        id: 10,
+        text: "What is an option to detect heartbleed on a private server?",
+        options: ["Nothing, you can't", "Qualys", "DomSignal", "Run the openssl version command"],
+        correctAnswer: "Run the openssl version command",
+      },
     
   ];
   

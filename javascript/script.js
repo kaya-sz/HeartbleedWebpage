@@ -23,3 +23,24 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebarNav.appendChild(listItem);
   });
 });
+
+function setVideoSize() {
+    const video1 = document.getElementById('dynamicVideo');
+    const video2 = document.getElementById('dynamicVideo2');
+    const padding = 100;
+  
+    const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+  
+    const maxWidth = windowWidth - padding * 2;
+    const maxHeight = windowHeight - padding * 2;
+  
+    video1.style.maxWidth = `${maxWidth}px`;
+    video1.style.maxHeight = `${maxHeight}px`;
+  
+    video2.style.maxWidth = `${maxWidth}px`;
+    video2.style.maxHeight = `${maxHeight}px`;
+  }
+  
+  setVideoSize();
+  window.addEventListener('resize', setVideoSize);
